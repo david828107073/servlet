@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="BIG5">
+<title>首頁(jQuery)</title>
+<style>
+table, td, th, tr {
+	border: 1px solid #000;
+	border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+	<h1>jQuery Page</h1>
+	<button id="btn">Click AJAX</button>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>NAME</th>
+			<th>AGE</th>
+			<th>PHONE</th>
+		</tr>
+	</table>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function() {
+			$('h1').css('color', 'red')
+			var objs = [];
+			var btn = $('#btn');
+			btn.on('click', function() {
+				objs = [];
+				$.ajax('http://127.0.0.1:8081/servletSpring/app').done(
+						function(data) {
+							var res = JSON.parse(data);
+							var str = "";
+							for(let i = 0; i < res.length; i++){
+								str += `<tr><td>${res[i].id}</td>
+										<td>${res[i].name}</td>
+										<td>${res[i].age}</td>
+										<td>${res[i].phone}</td></tr>
+								`
+							}
+							$('table > tbody > tr').after(str)
+						}).fail(function() {
+					alert('failed!')
+				})
+			})
+		})
+	</script>
+</body>
+</html>

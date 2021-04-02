@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app" v-if="data">
+        <!-- <ul v-for="(user,index) in data">
+            <li>使用者名稱:{{user.name}},年齡:{{user.age}},聯絡方式:{{user.phone}}</li>
+        </ul> -->
+        <el-table :data="data">
+            <el-table-column label="使用者" prop="name"/></el-table-column>
+            <el-table-column label="年齡" prop="age"></el-table-column>
+            <el-table-column label="聯絡方式" prop="phone"></el-table-column>
+        </el-table>
+
+    </div>
+    <!-- <script src="../vue.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: () => {
+                return {
+                    data: []
+                }
+            },
+            methods: {
+
+            },
+            mounted() {
+                axios.get('http://127.0.0.1:8081/servletSpring/app').then(res => this.data = res.data)
+            }
+        })
+
+    </script>
+</body>
+
+</html>
